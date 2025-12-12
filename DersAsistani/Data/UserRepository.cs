@@ -10,7 +10,6 @@ namespace DersAsistani.Data
         {
             using (var conn = Database.Open())
             {
-                conn.Open();
                 using (var cmd = new SQLiteCommand(conn))
                 {
                     cmd.CommandText = @"INSERT INTO Users(Username, PasswordHash, FullName, CreatedAt)
@@ -28,7 +27,6 @@ namespace DersAsistani.Data
         {
             using (var conn = Database.Open())
             {
-                conn.Open();
                 using (var cmd = new SQLiteCommand("SELECT Id, Username, PasswordHash, FullName, CreatedAt FROM Users WHERE Username=@u;", conn))
                 {
                     cmd.Parameters.AddWithValue("@u", username);
@@ -52,7 +50,6 @@ namespace DersAsistani.Data
         {
             using (var conn = Database.Open())
             {
-                conn.Open();
                 using (var cmd = new SQLiteCommand("SELECT COUNT(1) FROM Users WHERE Username=@u;", conn))
                 {
                     cmd.Parameters.AddWithValue("@u", username);
