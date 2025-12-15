@@ -1,26 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.IO;
 using DersAsistani.Models;
 
 namespace DersAsistani.Data
 {
     public class CourseRepository
     {
-        public bool Create(Course c)
+        private string _connectionString;
+
+        public CourseRepository()
         {
-            using (var conn = Database.Open())
+            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DersAsistani.db");
+            _connectionString = $"Data Source={dbPath};Version=3;";
+            InitializeDatabase();
+        }
+
+        private void InitializeDatabase()
+        {
+            if (!File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DersAsistani.db")))
+            {
+                SQLiteConnection.CreateFile("DersAsistani.db");
+            }
+
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
-                using (var cmd = new SQLiteCommand(conn))
+                string sql = @"
+                    CREATE TABLE IF NOT EXISTS Courses (
+                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Name TEXT NOT NULL,
+                        Instructor TEXT,
+                        Day TEXT,
+                        StartTime TEXT,
+                        EndTime TEXT,
+                        Color TEXT
+                    )";
+                using (var cmd = new SQLiteCommand(sql, conn))
                 {
-                    cmd.CommandText = @"INSERT INTO Courses(Name, Instructor, Schedule, CreatedAt)
-                                        VALUES(@n, @i, @s, @c);";
-                    cmd.Parameters.AddWithValue("@n", c.Name);
-                    cmd.Parameters.AddWithValue("@i", c.Instructor);
-                    cmd.Parameters.AddWithValue("@s", c.Schedule);
-                    cmd.Parameters.AddWithValue("@c", c.CreatedAt);
-                    return cmd.ExecuteNonQuery() == 1;
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
@@ -28,55 +47,74 @@ namespace DersAsistani.Data
         public List<Course> GetAll()
         {
             var list = new List<Course>();
-            using (var conn = Database.Open())
+
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
-                using (var cmd = new SQLiteCommand("SELECT Id, Name, Instructor, Schedule, CreatedAt FROM Courses;", conn))
-                using (var r = cmd.ExecuteReader())
+                string sql = "SELECT * FROM Courses";
+
+                using (var cmd = new SQLiteCommand(sql, conn))
                 {
-                    while (r.Read())
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        var c = new Course();
-                        c.Id = r.GetInt32(0);
-                        c.Name = r.GetString(1);
-                        c.Instructor = r.GetString(2);
-                        c.Schedule = r.GetString(3);
-                        c.CreatedAt = r.GetString(4);
-                        list.Add(c);
+                        while (reader.Read())
+                        {
+                            DateTime start = DateTime.Now;
+                            DateTime end = DateTime.Now;
+
+                            DateTime.TryParse(reader["StartTime"].ToString(), out start);
+                            DateTime.TryParse(reader["EndTime"].ToString(), out end);
+
+                            list.Add(new Course
+                            {
+                                Id = Convert.ToInt32(reader["Id"]),
+                                Name = reader["Name"].ToString(),
+                                Instructor = reader["Instructor"] != DBNull.Value ? reader["Instructor"].ToString() : "",
+                                Day = reader["Day"] != DBNull.Value ? reader["Day"].ToString() : "",
+                                StartTime = start,
+                                EndTime = end,
+                                Color = reader["Color"] != DBNull.Value ? reader["Color"].ToString() : "#FFFFFF",
+                                CreatedAt = DateTime.Now
+                            });
+                        }
                     }
                 }
             }
             return list;
         }
 
-        public bool Update(Course c)
+        public void Create(Course course)
         {
-            using (var conn = Database.Open())
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
-                using (var cmd = new SQLiteCommand(conn))
+                string sql = "INSERT INTO Courses (Name, Instructor, Day, StartTime, EndTime, Color) VALUES (@Name, @Instructor, @Day, @StartTime, @EndTime, @Color)";
+
+                using (var cmd = new SQLiteCommand(sql, conn))
                 {
-                    cmd.CommandText = @"UPDATE Courses
-                                        SET Name=@n, Instructor=@i, Schedule=@s
-                                        WHERE Id=@id;";
-                    cmd.Parameters.AddWithValue("@n", c.Name);
-                    cmd.Parameters.AddWithValue("@i", c.Instructor);
-                    cmd.Parameters.AddWithValue("@s", c.Schedule);
-                    cmd.Parameters.AddWithValue("@id", c.Id);
-                    return cmd.ExecuteNonQuery() == 1;
+                    cmd.Parameters.AddWithValue("@Name", course.Name);
+                    cmd.Parameters.AddWithValue("@Instructor", course.Instructor ?? "");
+                    cmd.Parameters.AddWithValue("@Day", course.Day ?? "");
+                    cmd.Parameters.AddWithValue("@StartTime", course.StartTime.ToString("HH:mm"));
+                    cmd.Parameters.AddWithValue("@EndTime", course.EndTime.ToString("HH:mm"));
+                    cmd.Parameters.AddWithValue("@Color", course.Color ?? "#FFFFFF");
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
 
-        public bool Delete(int id)
+        // SİLME METODU BURADA
+        public void Delete(int id)
         {
-            using (var conn = Database.Open())
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
-                using (var cmd = new SQLiteCommand("DELETE FROM Courses WHERE Id=@id;", conn))
+                string sql = "DELETE FROM Courses WHERE Id = @Id";
+                using (var cmd = new SQLiteCommand(sql, conn))
                 {
-                    cmd.Parameters.AddWithValue("@id", id);
-                    return cmd.ExecuteNonQuery() == 1;
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

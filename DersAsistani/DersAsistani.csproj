@@ -59,8 +59,12 @@
     <Compile Include="Data\CourseRepository.cs" />
     <Compile Include="Data\Database.cs" />
     <Compile Include="Data\GradeRepository.cs" />
+    <Compile Include="Data\NoteRepository.cs" />
     <Compile Include="Data\ScheduleRepository.cs" />
     <Compile Include="Data\UserRepository.cs" />
+    <Compile Include="Forms\AyarlarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\DersForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +78,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NotlarForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\OdevForm.cs">
@@ -94,6 +101,7 @@
     <Compile Include="Models\Assignment.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Grade.cs" />
+    <Compile Include="Models\Note.cs" />
     <Compile Include="Models\ScheduleItem.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
@@ -102,16 +110,29 @@
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\CourseService.cs" />
     <Compile Include="Services\GradeService.cs" />
+    <Compile Include="Services\NoteService.cs" />
     <Compile Include="Services\ScheduleService.cs" />
     <Compile Include="Utils\ExportHelper.cs" />
     <Compile Include="Utils\PasswordHasher.cs" />
     <Compile Include="Utils\UIHelper.cs" />
     <Compile Include="Utils\Validation.cs" />
+    <EmbeddedResource Include="Forms\AyarlarForm.resx">
+      <DependentUpon>AyarlarForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DersForm.resx">
+      <DependentUpon>DersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\GradesForm.resx">
       <DependentUpon>GradesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NotlarForm.resx">
+      <DependentUpon>NotlarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OdevForm.resx">
       <DependentUpon>OdevForm.cs</DependentUpon>

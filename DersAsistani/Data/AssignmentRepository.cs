@@ -1,87 +1,122 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Windows.Forms;
+using System.IO;
 using DersAsistani.Models;
 
 namespace DersAsistani.Data
 {
     public class AssignmentRepository
     {
-        public bool Create(Assignment a)
+        private string _connectionString;
+
+        public AssignmentRepository()
         {
-            try
+            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DersAsistani.db");
+            _connectionString = $"Data Source={dbPath};Version=3;";
+            InitializeDatabase();
+        }
+
+        private void InitializeDatabase()
+        {
+            using (var conn = new SQLiteConnection(_connectionString))
             {
-                using (var conn = Database.Open())
+                conn.Open();
+                // Veritabanı yapısını yeni Modele göre ayarlıyoruz
+                string sql = @"
+                    CREATE TABLE IF NOT EXISTS Assignments (
+                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        CourseName TEXT,
+                        Description TEXT,
+                        DueDate TEXT,
+                        IsCompleted INTEGER DEFAULT 0 
+                    )";
+                using (var cmd = new SQLiteCommand(sql, conn))
                 {
-                    using (var cmd = new SQLiteCommand(conn))
-                    {
-                        cmd.CommandText = @"INSERT INTO Assignments(CourseId, Title, Description, DueDate, Status, CreatedAt)
-                                            VALUES(@cid, @t, @d, @due, @s, @c);";
-                        cmd.Parameters.AddWithValue("@cid", a.CourseId);
-                        cmd.Parameters.AddWithValue("@t", a.Title);
-                        cmd.Parameters.AddWithValue("@d", a.Description ?? "");
-                        cmd.Parameters.AddWithValue("@due", a.DueDate);
-                        cmd.Parameters.AddWithValue("@s", a.Status);
-                        cmd.Parameters.AddWithValue("@c", a.CreatedAt);
-                        return cmd.ExecuteNonQuery() == 1;
-                    }
+                    cmd.ExecuteNonQuery();
                 }
             }
-            catch (SQLiteException ex)
+        }
+
+        // HATA ÇÖZÜMÜ: Metodun adı "Add" değil "Create" yapıldı.
+        public void Create(Assignment assignment)
+        {
+            using (var conn = new SQLiteConnection(_connectionString))
             {
-                MessageBox.Show(
-                    "Veritabanı hatası (Assignments Create): " + ex.Message,
-                    "SQL Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "Beklenmeyen hata (Assignments Create): " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                conn.Open();
+                string sql = "INSERT INTO Assignments (CourseName, Description, DueDate, IsCompleted) VALUES (@CourseName, @Description, @DueDate, 0)";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@CourseName", assignment.CourseName);
+                    cmd.Parameters.AddWithValue("@Description", assignment.Description);
+
+                    // HATA ÇÖZÜMÜ: DateTime -> String dönüşümü elle yapıldı
+                    cmd.Parameters.AddWithValue("@DueDate", assignment.DueDate.ToString("yyyy-MM-dd HH:mm"));
+
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
         public List<Assignment> GetAll()
         {
             var list = new List<Assignment>();
-            try
+            using (var conn = new SQLiteConnection(_connectionString))
             {
-                using (var conn = Database.Open())
+                conn.Open();
+                string sql = "SELECT * FROM Assignments ORDER BY DueDate ASC";
+                using (var cmd = new SQLiteCommand(sql, conn))
                 {
-                    using (var cmd = new SQLiteCommand("SELECT Id, CourseId, Title, Description, DueDate, Status, CreatedAt FROM Assignments;", conn))
-                    using (var r = cmd.ExecuteReader())
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        while (r.Read())
+                        while (reader.Read())
                         {
-                            var a = new Assignment();
-                            a.Id = r.GetInt32(0);
-                            a.CourseId = r.GetInt32(1);
-                            a.Title = r.GetString(2);
-                            a.Description = r.IsDBNull(3) ? "" : r.GetString(3);
-                            a.DueDate = r.GetString(4);
-                            a.Status = r.GetString(5);
-                            a.CreatedAt = r.GetString(6);
-                            list.Add(a);
+                            // HATA ÇÖZÜMÜ: String -> DateTime dönüşümü
+                            DateTime dueDate = DateTime.Now;
+                            DateTime.TryParse(reader["DueDate"].ToString(), out dueDate);
+
+                            list.Add(new Assignment
+                            {
+                                Id = Convert.ToInt32(reader["Id"]),
+                                CourseName = reader["CourseName"].ToString(), // CourseName hatası çözümü
+                                Description = reader["Description"].ToString(),
+                                DueDate = dueDate,
+                                IsCompleted = Convert.ToInt32(reader["IsCompleted"]) == 1 // IsCompleted hatası çözümü
+                            });
                         }
                     }
                 }
             }
-            catch (SQLiteException ex)
-            {
-                MessageBox.Show(
-                    "Veritabanı hatası (Assignments GetAll): " + ex.Message,
-                    "SQL Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "Beklenmeyen hata (Assignments GetAll): " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             return list;
+        }
+
+        public void Delete(int id)
+        {
+            using (var conn = new SQLiteConnection(_connectionString))
+            {
+                conn.Open();
+                string sql = "DELETE FROM Assignments WHERE Id = @Id";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateStatus(int id, bool isCompleted)
+        {
+            using (var conn = new SQLiteConnection(_connectionString))
+            {
+                conn.Open();
+                string sql = "UPDATE Assignments SET IsCompleted = @Status WHERE Id = @Id";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Status", isCompleted ? 1 : 0);
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

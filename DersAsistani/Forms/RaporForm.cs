@@ -37,8 +37,10 @@ namespace DersAsistani.Forms
 
             foreach (var a in _assignmentRepo.GetAll())
             {
-                if (a.Status == "Tamamlandı")
+                if (a.IsCompleted)
+                {
                     completedCount++;
+                }
             }
 
             lblCourses.Text = "Toplam Ders Sayısı: " + courseCount;

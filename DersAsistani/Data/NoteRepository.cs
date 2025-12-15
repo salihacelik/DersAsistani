@@ -6,11 +6,11 @@ using DersAsistani.Models;
 
 namespace DersAsistani.Data
 {
-    public class ScheduleRepository
+    public class NoteRepository
     {
         private string _connectionString;
 
-        public ScheduleRepository()
+        public NoteRepository()
         {
             string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DersAsistani.db");
             _connectionString = $"Data Source={dbPath};Version=3;";
@@ -22,62 +22,44 @@ namespace DersAsistani.Data
             using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
-                string sql = @"
-                    CREATE TABLE IF NOT EXISTS Schedules (
-                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        Title TEXT,
-                        Category TEXT,
-                        Date TEXT,
-                        Description TEXT
-                    )";
+                string sql = "CREATE TABLE IF NOT EXISTS Notes (Id INTEGER PRIMARY KEY AUTOINCREMENT, Title TEXT, Content TEXT)";
+                using (var cmd = new SQLiteCommand(sql, conn)) { cmd.ExecuteNonQuery(); }
+            }
+        }
+
+        public void Add(Note note)
+        {
+            using (var conn = new SQLiteConnection(_connectionString))
+            {
+                conn.Open();
+                string sql = "INSERT INTO Notes (Title, Content) VALUES (@Title, @Content)";
                 using (var cmd = new SQLiteCommand(sql, conn))
                 {
+                    cmd.Parameters.AddWithValue("@Title", note.Title);
+                    cmd.Parameters.AddWithValue("@Content", note.Content);
                     cmd.ExecuteNonQuery();
                 }
             }
         }
 
-        public void Add(ScheduleItem item)
+        public List<Note> GetAll()
         {
+            var list = new List<Note>();
             using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
-                string sql = "INSERT INTO Schedules (Title, Category, Date, Description) VALUES (@Title, @Category, @Date, @Description)";
-                using (var cmd = new SQLiteCommand(sql, conn))
-                {
-                    cmd.Parameters.AddWithValue("@Title", item.Title);
-                    cmd.Parameters.AddWithValue("@Category", item.Category);
-                    cmd.Parameters.AddWithValue("@Date", item.Date.ToString("yyyy-MM-dd HH:mm"));
-                    cmd.Parameters.AddWithValue("@Description", item.Description);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public List<ScheduleItem> GetAll()
-        {
-            var list = new List<ScheduleItem>();
-            using (var conn = new SQLiteConnection(_connectionString))
-            {
-                conn.Open();
-                // Tarihe göre sıralı getiriyoruz ki en yakın etkinlik en üstte olsun
-                string sql = "SELECT * FROM Schedules ORDER BY Date ASC";
+                string sql = "SELECT * FROM Notes ORDER BY Id DESC";
                 using (var cmd = new SQLiteCommand(sql, conn))
                 {
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            DateTime date = DateTime.Now;
-                            DateTime.TryParse(reader["Date"].ToString(), out date);
-
-                            list.Add(new ScheduleItem
+                            list.Add(new Note
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
                                 Title = reader["Title"].ToString(),
-                                Category = reader["Category"].ToString(),
-                                Description = reader["Description"].ToString(),
-                                Date = date
+                                Content = reader["Content"].ToString()
                             });
                         }
                     }
@@ -91,7 +73,7 @@ namespace DersAsistani.Data
             using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
-                string sql = "DELETE FROM Schedules WHERE Id = @Id";
+                string sql = "DELETE FROM Notes WHERE Id = @Id";
                 using (var cmd = new SQLiteCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@Id", id);

@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DersAsistani.Models
 {
     public class Assignment
     {
         public int Id { get; set; }
-        public int CourseId { get; set; }
-        public string Title { get; set; }
+
+        // Hata Alan Yer: Artık "CourseId" değil "CourseName" kullanıyoruz
+        public string CourseName { get; set; }
+
         public string Description { get; set; }
-        public string DueDate { get; set; }
-        public string Status { get; set; }
-        public string CreatedAt { get; set; }
+
+        // Hata Alan Yer: DateTime formatı
+        public DateTime DueDate { get; set; }
+
+        // Hata Alan Yer: Onay kutusu için gerekli
+        public bool IsCompleted { get; set; }
     }
 }

@@ -1,20 +1,8 @@
-# Visual Studio cache ve ayar dosyalarý
+# Visual Studio cache
 .vs/
-*.user
-*.suo
-
-# Build klasörleri
 bin/
 obj/
-
-# Paketler
-packages/
-
-# Geçici dosyalar
+*.user
+*.suo
 *.log
-*.tmp
-*.DS_Store
-Thumbs.db
-
-# Test çýktýlarý
-TestResults/
+*.vsidx/

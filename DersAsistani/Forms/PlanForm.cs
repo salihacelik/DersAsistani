@@ -1,108 +1,118 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
-using DersAsistani.Data;
 using DersAsistani.Models;
-
+using DersAsistani.Services;
 
 namespace DersAsistani.Forms
 {
+    // "public" kelimesi çok önemli, Main formun bunu görmesini sağlar.
     public class PlanForm : Form
     {
-        private DataGridView grid = new DataGridView { Left = 20, Top = 20, Width = 500, Height = 200 };
-        private TextBox txtTitle = new TextBox { Left = 20, Top = 240, Width = 120 };
-        private TextBox txtDetails = new TextBox { Left = 150, Top = 240, Width = 120 };
-        private DateTimePicker dtStart = new DateTimePicker { Left = 280, Top = 240, Width = 120, Format = DateTimePickerFormat.Custom, CustomFormat = "yyyy-MM-dd HH:mm" };
-        private DateTimePicker dtEnd = new DateTimePicker { Left = 410, Top = 240, Width = 120, Format = DateTimePickerFormat.Custom, CustomFormat = "yyyy-MM-dd HH:mm" };
-        private ComboBox cmbCategory = new ComboBox { Left = 20, Top = 280, Width = 120 };
-        private Button btnAdd = new Button { Left = 150, Top = 280, Width = 380, Text = "Plan Ekle" };
+        private ListBox lstSchedules;
+        private TextBox txtTitle;
+        private ComboBox cmbCategory;
+        private DateTimePicker dtpDate;
+        private TextBox txtDescription;
+        private Button btnAdd;
+        private Button btnDelete;
 
-        private ScheduleRepository _repo;
+        private ScheduleService _service;
 
         public PlanForm()
         {
             this.Text = "Planlarım";
-            this.Width = 560;
-            this.Height = 380;
+            this.Width = 500;
+            this.Height = 480;
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
 
-            this.Controls.Add(grid);
-            this.Controls.Add(txtTitle);
-            this.Controls.Add(txtDetails);
-            this.Controls.Add(dtStart);
-            this.Controls.Add(dtEnd);
-            this.Controls.Add(cmbCategory);
-            this.Controls.Add(btnAdd);
-
-            cmbCategory.Items.AddRange(new string[] { "Ders", "Ödev", "Sınav", "Kişisel" });
-
-            _repo = new ScheduleRepository();
-
-            btnAdd.Click += BtnAdd_Click;
-
-            LoadPlans();
+            _service = new ScheduleService();
+            InitializeCustomControls();
+            LoadSchedules();
         }
 
-        private void LoadPlans()
+        private void InitializeCustomControls()
         {
-            grid.Rows.Clear();
-            grid.Columns.Clear();
-            grid.Columns.Add("Title", "Başlık");
-            grid.Columns.Add("Details", "Detay");
-            grid.Columns.Add("StartTime", "Başlangıç");
-            grid.Columns.Add("EndTime", "Bitiş");
-            grid.Columns.Add("Category", "Kategori");
+            lstSchedules = new ListBox { Left = 20, Top = 20, Width = 440, Height = 200 };
 
-            List<ScheduleItem> list = _repo.GetAll();
-            for (int i = 0; i < list.Count; i++)
-            {
-                var p = list[i];
-                grid.Rows.Add(p.Title, p.Details, p.StartTime, p.EndTime, p.Category);
-            }
+            txtTitle = new TextBox { Left = 20, Top = 240, Width = 200 };
+            SetPlaceholder(txtTitle, "Başlık (Örn: Fizik Sınavı)");
+
+            cmbCategory = new ComboBox { Left = 240, Top = 240, Width = 220, DropDownStyle = ComboBoxStyle.DropDownList };
+            cmbCategory.Items.AddRange(new object[] { "Sınav", "Ders Çalışma", "Toplantı", "Etkinlik", "Diğer" });
+            cmbCategory.SelectedIndex = 0;
+
+            dtpDate = new DateTimePicker { Left = 20, Top = 280, Width = 200, Format = DateTimePickerFormat.Custom, CustomFormat = "dd.MM.yyyy HH:mm" };
+
+            txtDescription = new TextBox { Left = 20, Top = 320, Width = 440, Height = 50, Multiline = true };
+            SetPlaceholder(txtDescription, "Notlar / Açıklama...");
+
+            btnAdd = new Button { Left = 20, Top = 385, Width = 200, Height = 40, Text = "Plan Ekle", BackColor = Color.LightSkyBlue };
+            btnAdd.Click += BtnAdd_Click;
+
+            btnDelete = new Button { Left = 260, Top = 385, Width = 200, Height = 40, Text = "Seçileni Sil", BackColor = Color.LightCoral };
+            btnDelete.Click += BtnDelete_Click;
+
+            this.Controls.Add(lstSchedules);
+            this.Controls.Add(txtTitle);
+            this.Controls.Add(cmbCategory);
+            this.Controls.Add(dtpDate);
+            this.Controls.Add(txtDescription);
+            this.Controls.Add(btnAdd);
+            this.Controls.Add(btnDelete);
+        }
+
+        private void LoadSchedules()
+        {
+            lstSchedules.Items.Clear();
+            List<ScheduleItem> list = _service.GetAll();
+            foreach (var item in list) lstSchedules.Items.Add(new ScheduleItemWrapper(item));
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtTitle.Text) || cmbCategory.SelectedItem == null)
+            if (txtTitle.Text == "Başlık (Örn: Fizik Sınavı)" || string.IsNullOrWhiteSpace(txtTitle.Text))
             {
-                MessageBox.Show("Başlık ve kategori zorunlu.");
+                MessageBox.Show("Lütfen bir başlık giriniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            string desc = txtDescription.Text == "Notlar / Açıklama..." ? "" : txtDescription.Text;
+            var result = _service.Create(txtTitle.Text, cmbCategory.Text, dtpDate.Value, desc);
 
-            var p = new ScheduleItem();
-            p.Title = txtTitle.Text.Trim();
-            p.Details = txtDetails.Text.Trim();
-            p.StartTime = dtStart.Value.ToString("yyyy-MM-dd HH:mm:ss");
-            p.EndTime = dtEnd.Value.ToString("yyyy-MM-dd HH:mm:ss");
-            p.Category = cmbCategory.SelectedItem.ToString();
-            p.CreatedAt = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
-
-            bool ok = _repo.Create(p);
-
-            MessageBox.Show(ok ? "Plan eklendi." : "Kayıt sırasında hata oluştu.",
-                ok ? "Bilgi" : "Hata",
-                MessageBoxButtons.OK,
-                ok ? MessageBoxIcon.Information : MessageBoxIcon.Error);
-
-            if (ok)
-            {
-                LoadPlans();
-                txtTitle.Text = "";
-                txtDetails.Text = "";
-            }
+            if (result.Item1) { LoadSchedules(); ResetInput(txtTitle, "Başlık (Örn: Fizik Sınavı)"); ResetInput(txtDescription, "Notlar / Açıklama..."); dtpDate.Value = DateTime.Now; }
+            else { MessageBox.Show(result.Item2, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
-        private void InitializeComponent()
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
-            this.SuspendLayout();
-            // 
-            // PlanForm
-            // 
-            this.ClientSize = new System.Drawing.Size(282, 253);
-            this.Name = "PlanForm";
-            this.ResumeLayout(false);
-
+            if (lstSchedules.SelectedItem is ScheduleItemWrapper selected)
+            {
+                if (MessageBox.Show("Bu planı silmek istiyor musunuz?", "Sil", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    _service.Delete(selected.Item.Id);
+                    LoadSchedules();
+                }
+            }
+            else { MessageBox.Show("Lütfen silmek için listeden bir plan seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
-        
+        private class ScheduleItemWrapper
+        {
+            public ScheduleItem Item { get; }
+            public ScheduleItemWrapper(ScheduleItem item) { Item = item; }
+            public override string ToString() { return $"[{Item.Date:dd.MM HH:mm}] {Item.Category.ToUpper()} - {Item.Title}"; }
+        }
+
+        private void SetPlaceholder(TextBox txt, string placeholder)
+        {
+            txt.Text = placeholder; txt.ForeColor = Color.Gray;
+            txt.GotFocus += (s, e) => { if (txt.Text == placeholder) { txt.Text = ""; txt.ForeColor = Color.Black; } };
+            txt.LostFocus += (s, e) => { if (string.IsNullOrWhiteSpace(txt.Text)) { txt.Text = placeholder; txt.ForeColor = Color.Gray; } };
+        }
+
+        private void ResetInput(TextBox txt, string placeholder) { txt.Text = placeholder; txt.ForeColor = Color.Gray; }
     }
 }
