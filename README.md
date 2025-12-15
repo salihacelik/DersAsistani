@@ -46,9 +46,5 @@ Bu uygulama, karmaşık ajandalar yerine dijital ve pratik bir çözüm arayan �
 2. `DersAsistani.sln` dosyasını Visual Studio ile açın.
 3. Projeyi derleyin (Build) ve Başlat (Start) tuşuna basın.
 
-## 📷 Ekran Görüntüleri
 
-
-
----
 
