@@ -5,11 +5,10 @@ using System.IO;
 using System.Windows.Forms;
 using DersAsistani.Models;
 using DersAsistani.Services;
-using DersAsistani.Utils; // Ensure this namespace exists for UIHelper
+using DersAsistani.Utils;
 
 namespace DersAsistani.Forms
 {
-    // "partial" is crucial to avoid InitializeComponent errors if a Designer file exists.
     public partial class MainForm : Form
     {
         private readonly User _user;
@@ -37,6 +36,7 @@ namespace DersAsistani.Forms
         private Button btnNavPlans;
         private Button btnNavNotes;
         private Button btnNavSettings;
+        private Button btnNavLogout; // --- YENİ EKLENDİ: Çıkış Butonu Tanımı ---
 
         // Left Panel (Calendar + Clock)
         private Panel leftPanel;
@@ -47,7 +47,7 @@ namespace DersAsistani.Forms
         // Right Panel (Events / Dashboard)
         private Panel eventsPanel;
         private Label lblEventsTitle;
-        private ListBox lstEvents; // This will act as our "Dashboard" list
+        private ListBox lstEvents;
 
         // Meetings Panel (Top Right)
         private Panel meetingsPanel;
@@ -84,7 +84,7 @@ namespace DersAsistani.Forms
             RefreshDashboard();
         }
 
-        // Default constructor for Designer support (optional but good practice)
+        // Default constructor for Designer support
         public MainForm() : this(null) { }
 
         private void InitializeFormProperties()
@@ -94,9 +94,6 @@ namespace DersAsistani.Forms
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.None;
             this.BackColor = Color.FromArgb(240, 242, 245);
-
-            // If UIHelper exists in your project, use it. Otherwise, comment this out.
-            // UIHelper.ApplyFormTheme(this, UIHelper.ThemeMode.Light); 
         }
 
         private void InitializeCustomControls()
@@ -131,6 +128,11 @@ namespace DersAsistani.Forms
             btnNavNotes = CreateNavButton("Notlar");
             btnNavSettings = CreateNavButton("Ayarlar");
 
+            // --- YENİ EKLENDİ: Çıkış Butonunu Oluşturma ---
+            btnNavLogout = CreateNavButton("Çıkış Yap");
+            // Çıkış butonunu biraz farklı renklendirelim (Kırmızımsı hover efekti)
+            btnNavLogout.MouseEnter += (s, e) => btnNavLogout.BackColor = Color.FromArgb(192, 57, 43);
+
             // Left Panel (Calendar)
             leftPanel = new Panel { BackColor = Color.White, Width = 300, Dock = DockStyle.Left, Padding = new Padding(12) };
             monthCalendar = new MonthCalendar
@@ -148,7 +150,7 @@ namespace DersAsistani.Forms
                 Font = new Font("Segoe UI", 14, FontStyle.Bold),
                 ForeColor = Color.FromArgb(52, 73, 94),
                 AutoSize = true,
-                Location = new Point(12, 180) // Adjusted position
+                Location = new Point(12, 180)
             };
             lblSelectedDate = new Label
             {
@@ -156,10 +158,10 @@ namespace DersAsistani.Forms
                 Font = new Font("Segoe UI", 9, FontStyle.Regular),
                 ForeColor = Color.FromArgb(127, 140, 141),
                 AutoSize = true,
-                Location = new Point(12, 210) // Adjusted position
+                Location = new Point(12, 210)
             };
 
-            // Meetings Panel (Top Right - Static for now or can be dynamic)
+            // Meetings Panel
             meetingsPanel = new Panel { Dock = DockStyle.Top, Height = 120, BackColor = Color.FromArgb(250, 250, 250), Padding = new Padding(8) };
             lblMeetingsTitle = new Label
             {
@@ -178,7 +180,7 @@ namespace DersAsistani.Forms
             };
             lstMeetings.Items.Add("10:30 - Proje Toplantısı (Zoom)");
 
-            // Events Panel (Bottom Right - This will be our Dashboard)
+            // Events Panel
             eventsPanel = new Panel { BackColor = Color.White, Dock = DockStyle.Fill, Padding = new Padding(12) };
             lblEventsTitle = new Label
             {
@@ -204,14 +206,18 @@ namespace DersAsistani.Forms
             titleBar.Controls.AddRange(new Control[] { btnMinimize, btnMaximize, btnClose });
             PositionTitleButtons();
 
-            // Nav Panel Layout (Add in reverse order for Dock.Top stacking)
+            // Nav Panel Layout (Dock.Top mantığıyla ters sıra: En son eklenen en üstte olur)
             navPanel.Controls.Clear();
+
+            // --- YENİ EKLENDİ: Çıkış butonunu buraya ekliyoruz ki en altta görünsün (Ayarlar'ın altında) ---
+            navPanel.Controls.Add(btnNavLogout);
+
             navPanel.Controls.Add(btnNavSettings);
             navPanel.Controls.Add(btnNavNotes);
             navPanel.Controls.Add(btnNavPlans);
             navPanel.Controls.Add(btnNavAssignments);
             navPanel.Controls.Add(btnNavCourses);
-            navPanel.Controls.Add(btnNavHome);
+            navPanel.Controls.Add(btnNavHome); // En son eklendiği için EN ÜSTTE görünür
 
             // Left Panel Layout
             leftPanel.Controls.Add(monthCalendar);
@@ -223,15 +229,15 @@ namespace DersAsistani.Forms
             meetingsPanel.Controls.Add(lblMeetingsTitle);
 
             // Events Panel Layout
-            eventsPanel.Controls.Add(lstEvents); // Dashboard List
+            eventsPanel.Controls.Add(lstEvents);
             eventsPanel.Controls.Add(lblEventsTitle);
-            eventsPanel.Controls.Add(meetingsPanel); // Add meetings on top of events
+            eventsPanel.Controls.Add(meetingsPanel);
 
             // Main Form Layout
-            this.Controls.Add(eventsPanel); // Fill
-            this.Controls.Add(leftPanel);   // Left
-            this.Controls.Add(navPanel);    // Left
-            this.Controls.Add(titleBar);    // Top
+            this.Controls.Add(eventsPanel);
+            this.Controls.Add(leftPanel);
+            this.Controls.Add(navPanel);
+            this.Controls.Add(titleBar);
         }
 
         private void AttachEvents()
@@ -254,18 +260,36 @@ namespace DersAsistani.Forms
             btnNavCourses.Click += (s, e) => { new DersForm().ShowDialog(); RefreshDashboard(); };
             btnNavAssignments.Click += (s, e) => { new OdevForm().ShowDialog(); RefreshDashboard(); };
             btnNavPlans.Click += (s, e) => { new PlanForm().ShowDialog(); RefreshDashboard(); };
-
-            // HERE IS THE NOTES BUTTON CONNECTION
             btnNavNotes.Click += (s, e) => { new NotlarForm().ShowDialog(); };
 
-            // Ayarlar Butonu (btnNavSettings)
+            // Ayarlar Butonu
             btnNavSettings.Click += (s, e) =>
             {
                 AyarlarForm form = new AyarlarForm();
                 form.ShowDialog();
-                // Ayarlardan çıkınca ekranı yenile (sıfırlama yapıldıysa liste boşalsın)
                 RefreshDashboard();
             };
+
+            // --- YENİ EKLENDİ: Çıkış Butonu İşlevi ---
+            btnNavLogout.Click += (s, e) =>
+            {
+                DialogResult cvp = MessageBox.Show("Hesabınızdan çıkış yapmak istediğinize emin misiniz?",
+                                                   "Çıkış Yap",
+                                                   MessageBoxButtons.YesNo,
+                                                   MessageBoxIcon.Question);
+
+                if (cvp == DialogResult.Yes)
+                {
+                    // LoginForm'u (Giriş Ekranı) aç
+                    // Not: Projende giriş formunun adı 'LoginForm' değilse burayı düzeltmelisin (örn: FrmGiris)
+                    LoginForm girisEkrani = new LoginForm();
+                    girisEkrani.Show();
+
+                    // Ana formu kapat
+                    this.Close();
+                }
+            };
+
             // Form Resize Event
             this.Resize += (s, e) => PositionTitleButtons();
             titleBar.Resize += (s, e) => PositionTitleButtons();
@@ -283,7 +307,7 @@ namespace DersAsistani.Forms
                 var schedules = _scheduleService.GetAll();
                 var allEvents = new List<DashboardItem>();
 
-                // Add Assignments (Incomplete and Future)
+                // Add Assignments
                 foreach (var a in assignments)
                 {
                     if (!a.IsCompleted && a.DueDate.Date >= DateTime.Now.Date)
@@ -296,7 +320,7 @@ namespace DersAsistani.Forms
                     }
                 }
 
-                // Add Plans (Future)
+                // Add Plans
                 foreach (var s in schedules)
                 {
                     if (s.Date.Date >= DateTime.Now.Date)
@@ -326,7 +350,6 @@ namespace DersAsistani.Forms
             }
             catch (Exception ex)
             {
-                // Prevent crash if database is locked or empty
                 lstEvents.Items.Add("Veri yüklenemedi.");
                 Console.WriteLine(ex.Message);
             }
@@ -390,7 +413,6 @@ namespace DersAsistani.Forms
             btnMinimize.BringToFront();
         }
 
-        // Internal class for Dashboard sorting
         private class DashboardItem
         {
             public DateTime SortDate { get; set; }
@@ -400,17 +422,10 @@ namespace DersAsistani.Forms
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // MainForm
-            // 
             this.ClientSize = new System.Drawing.Size(282, 253);
             this.Name = "MainForm";
-
-          //  this.Load += new System.EventHandler(this.MainForm_Load);
+            // this.Load += new System.EventHandler(this.MainForm_Load); // Bu event yoksa hata verebilir, şimdilik kapattım.
             this.ResumeLayout(false);
-
         }
-
-       
     }
 }

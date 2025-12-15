@@ -3,7 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\dersasistani\\data\\noterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\dersasistani\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|solutionrelative:dersasistani\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\dersasistani\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|solutionrelative:dersasistani\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|c:\\users\\hp\\onedrive\\masa\u00FCst\u00FC\\g\u0130thub\\dersasistani\\dersasistani\\data\\noterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|solutionrelative:dersasistani\\data\\noterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -15,7 +23,7 @@
       "RelativeMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|solutionrelative:dersasistani\\services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|c:\\users\\hp\\onedrive\\masa\u00FCst\u00FC\\g\u0130thub\\dersasistani\\dersasistani\\forms\\notlarform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\dersasistani\\forms\\notlarform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|solutionrelative:dersasistani\\forms\\notlarform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -29,14 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\dersasistani\\forms\\ayarlarform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|solutionrelative:dersasistani\\forms\\ayarlarform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\dersasistani\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|solutionrelative:dersasistani\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\dersasistani\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|solutionrelative:dersasistani\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FD3C850F-14A6-4295-8537-F51CF6564EF2}|DersAsistani\\DersAsistani.csproj|C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\dersasistani\\forms\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -142,39 +142,27 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
+              "Title": "NoteRepository.cs",
+              "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Data\\NoteRepository.cs",
+              "RelativeDocumentMoniker": "DersAsistani\\Data\\NoteRepository.cs",
+              "ToolTip": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Data\\NoteRepository.cs",
+              "RelativeToolTip": "DersAsistani\\Data\\NoteRepository.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAFQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-15T11:09:26.273Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "NotlarForm.cs [Design]",
               "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\NotlarForm.cs",
               "RelativeDocumentMoniker": "DersAsistani\\Forms\\NotlarForm.cs",
               "ToolTip": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\NotlarForm.cs [Design]",
               "RelativeToolTip": "DersAsistani\\Forms\\NotlarForm.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-15T11:26:50.206Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "NotlarForm.cs",
-              "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\NotlarForm.cs",
-              "RelativeDocumentMoniker": "DersAsistani\\Forms\\NotlarForm.cs",
-              "ToolTip": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\NotlarForm.cs",
-              "RelativeToolTip": "DersAsistani\\Forms\\NotlarForm.cs",
-              "ViewState": "AgIAANsAAAAAAAAAAAAowO4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-15T11:10:13.474Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Form1.cs [Tasar\u0131m]",
-              "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\Form1.cs",
-              "RelativeDocumentMoniker": "DersAsistani\\Forms\\Form1.cs",
-              "ToolTip": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\Form1.cs [Tasar\u0131m]",
-              "RelativeToolTip": "DersAsistani\\Forms\\Form1.cs [Tasar\u0131m]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-15T11:26:31.245Z"
+              "WhenOpened": "2025-12-15T11:26:50.206Z"
             },
             {
               "$type": "Document",
@@ -190,7 +178,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "AyarlarForm.cs [Tasar\u0131m]",
               "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\AyarlarForm.cs",
               "RelativeDocumentMoniker": "DersAsistani\\Forms\\AyarlarForm.cs",
@@ -201,7 +189,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "AssignmentRepository.cs",
               "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Data\\AssignmentRepository.cs",
               "RelativeDocumentMoniker": "DersAsistani\\Data\\AssignmentRepository.cs",
@@ -209,25 +197,59 @@
               "RelativeToolTip": "DersAsistani\\Data\\AssignmentRepository.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAgwHkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T22:51:58.818Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T22:51:58.818Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainForm.cs [Tasar\u0131m]",
+              "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\MainForm.cs",
+              "RelativeDocumentMoniker": "DersAsistani\\Forms\\MainForm.cs",
+              "ToolTip": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\MainForm.cs [Tasar\u0131m]",
+              "RelativeToolTip": "DersAsistani\\Forms\\MainForm.cs [Tasar\u0131m]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T09:48:08.907Z",
+              "EditorCaption": " [Tasar\u0131m]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "NoteRepository.cs",
-              "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Data\\NoteRepository.cs",
-              "RelativeDocumentMoniker": "DersAsistani\\Data\\NoteRepository.cs",
-              "ToolTip": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Data\\NoteRepository.cs",
-              "RelativeToolTip": "DersAsistani\\Data\\NoteRepository.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAzwFQAAAABAAAAAAAAAA==",
+              "Title": "MainForm.cs",
+              "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\MainForm.cs",
+              "RelativeDocumentMoniker": "DersAsistani\\Forms\\MainForm.cs",
+              "ToolTip": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\MainForm.cs",
+              "RelativeToolTip": "DersAsistani\\Forms\\MainForm.cs",
+              "ViewState": "AgIAAJkBAAAAAAAAAAAwwK4BAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-15T11:09:26.273Z",
+              "WhenOpened": "2025-12-12T09:48:11.264Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Form1.cs [Tasar\u0131m]",
+              "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\Form1.cs",
+              "RelativeDocumentMoniker": "DersAsistani\\Forms\\Form1.cs",
+              "ToolTip": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\Form1.cs [Tasar\u0131m]",
+              "RelativeToolTip": "DersAsistani\\Forms\\Form1.cs [Tasar\u0131m]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-15T11:26:31.245Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "NotlarForm.cs",
+              "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\NotlarForm.cs",
+              "RelativeDocumentMoniker": "DersAsistani\\Forms\\NotlarForm.cs",
+              "ToolTip": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\NotlarForm.cs",
+              "RelativeToolTip": "DersAsistani\\Forms\\NotlarForm.cs",
+              "ViewState": "AgIAANsAAAAAAAAAAAAowO4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-15T11:10:13.474Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "AyarlarForm.cs",
               "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\AyarlarForm.cs",
               "RelativeDocumentMoniker": "DersAsistani\\Forms\\AyarlarForm.cs",
@@ -239,7 +261,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "CourseService.cs",
               "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Services\\CourseService.cs",
               "RelativeDocumentMoniker": "DersAsistani\\Services\\CourseService.cs",
@@ -247,31 +269,7 @@
               "RelativeToolTip": "DersAsistani\\Services\\CourseService.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAgwE4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-15T10:18:05.306Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MainForm.cs",
-              "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\MainForm.cs",
-              "RelativeDocumentMoniker": "DersAsistani\\Forms\\MainForm.cs",
-              "ToolTip": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\MainForm.cs",
-              "RelativeToolTip": "DersAsistani\\Forms\\MainForm.cs",
-              "ViewState": "AgIAAIsBAAAAAAAAAEBAwJgBAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-12T09:48:11.264Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "MainForm.cs [Tasar\u0131m]",
-              "DocumentMoniker": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\MainForm.cs",
-              "RelativeDocumentMoniker": "DersAsistani\\Forms\\MainForm.cs",
-              "ToolTip": "C:\\Users\\hp\\OneDrive\\Masa\u00FCst\u00FC\\G\u0130THUB\\DersAsistani\\DersAsistani\\Forms\\MainForm.cs [Tasar\u0131m]",
-              "RelativeToolTip": "DersAsistani\\Forms\\MainForm.cs [Tasar\u0131m]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-12T09:48:08.907Z"
+              "WhenOpened": "2025-12-15T10:18:05.306Z"
             },
             {
               "$type": "Document",
